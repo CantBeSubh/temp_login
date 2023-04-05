@@ -2,6 +2,7 @@ import Head from 'next/head';
 import styles from '../styles/Home.module.css'
 import cx from 'classnames';
 import useSWR from 'swr';
+import { saveAs } from 'file-saver';
 import path from 'path';
 
 
@@ -21,14 +22,12 @@ function dashboard() {
                 <form
                     onSubmit={(e) => {
                         e.preventDefault();
-                        if (error)
-                            console.log(error);
-                        if (!error && !data)
-                            console.log("Loading...");
-                        if (data) {
-                            // window.open(path.join(process.cwd(), 'public') + "/data.json", "_blank");
-                            window.open("http://localhost:3000/data.json", "_blank");
-                        }
+                        // console.log();
+                        var blob = new Blob([e.target[0].value], { type: "text/plain;charset=utf-8" });
+                        saveAs(blob, "dynamic.txt");
+                        // window.open(path.join(process.cwd(), 'public') + "/data.json", "_blank");
+                        window.open("http://localhost:3000/data.json", "_blank");
+
                     }}
                 >
                     <h1 className="h3 mb-3 fw-normal text-light">Dashboard</h1>
