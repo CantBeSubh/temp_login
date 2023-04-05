@@ -1,8 +1,14 @@
 import Head from 'next/head';
 import styles from '../styles/Home.module.css'
 import cx from 'classnames';
+import useSWR from 'swr';
+import path from 'path';
+
+
+const fetcher = (url) => fetch(url).then((res) => res.json());
 
 function dashboard() {
+    const { data, error } = useSWR('/api/staticdata', fetcher);
     return (
         <div className={styles.container}>
             <Head>
@@ -15,7 +21,14 @@ function dashboard() {
                 <form
                     onSubmit={(e) => {
                         e.preventDefault();
-                        alert(e.target[0].value);
+                        if (error)
+                            console.log(error);
+                        if (!error && !data)
+                            console.log("Loading...");
+                        if (data) {
+                            // window.open(path.join(process.cwd(), 'public') + "/data.json", "_blank");
+                            window.open("http://localhost:3000/data.json", "_blank");
+                        }
                     }}
                 >
                     <h1 className="h3 mb-3 fw-normal text-light">Dashboard</h1>
