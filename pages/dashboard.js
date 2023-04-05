@@ -26,7 +26,8 @@ function dashboard() {
                         var blob = new Blob([e.target[0].value], { type: "text/plain;charset=utf-8" });
                         saveAs(blob, "dynamic.txt");
                         // window.open(path.join(process.cwd(), 'public') + "/data.json", "_blank");
-                        window.open("http://localhost:3000/data.json", "_blank");
+                        if (data)
+                            window.open("http://localhost:3000/data.json", "_blank");
 
                     }}
                 >
